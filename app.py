@@ -1,7 +1,7 @@
 #!flask/bin/python
 from flask import request, render_template, Flask
 import db, os, spark, sys, json
-
+import requests
 app = Flask(__name__)
 
 from random import randint
@@ -10,6 +10,8 @@ from random import randint
 from ciscosparkapi import CiscoSparkAPI
 
 api = CiscoSparkAPI("ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2")
+
+auth_code = 'ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2'
 
 global room_id
 @app.route('/')
@@ -74,9 +76,18 @@ def create_room(roomName):
     return api.rooms.create(roomName).id
 
 def addParticipantsToRoom(roomId, email_addresses):
-    print("Room id in aPTR ", roomId, " email: ", email_addresses)
+    print("Room id in aPTR ", roomId, " email: ", email_addresses   )
+    headers={
+    "Content-Type": "application/json; charset=utf-8", 
+    "Authorization" : auth_code 
+    }
     for email in email_addresses:
-        api.memberships.create(roomId, personEmail=email)
+        #api.memberships.create(roomId, personEmail=email)
+        r = requests.post("https://api.ciscospark.com/v1/memberships",headers=headers, data={
+        	"roomId": roomId,
+        	"personEmail": email,
+        	"isModerator": False
+        })
 
 
 
