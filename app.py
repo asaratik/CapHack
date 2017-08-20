@@ -1,9 +1,6 @@
 #!flask/bin/python
-from flask import request, render_template
-import db
-import spark
-import sys
-import json
+from flask import request, render_template, Flask
+import db, os, spark, sys, json
 
 app = Flask(__name__)
 
@@ -22,4 +19,5 @@ def web_hook():
 	return body
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.secret_key = os.urandom(12)
+	#app.run(debug=True)
