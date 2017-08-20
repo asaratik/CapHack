@@ -24,7 +24,7 @@ def analyze():
     q = body['result']['resolvedQuery']
     print(q)
     query = q.encode('ascii','ignore')
-    event = query.split()
+    event = query.split(" ")
     if(event[0] == "dash"):
         print("in DASH-----------------------------------------------")
         res = worker_serve(body)
