@@ -76,19 +76,21 @@ def create_room(roomName):
     return api.rooms.create(roomName).id
 
 def addParticipantsToRoom(roomId, email_addresses):
-    print("Room id in aPTR ", roomId, " email: ", email_addresses   )
-    headers={
-    "Content-Type": "application/json; charset=utf-8", 
-    "Authorization" : auth_code 
-    }
-    for email in email_addresses:
-        #api.memberships.create(roomId, personEmail=email)
-        r = requests.post("https://api.ciscospark.com/v1/memberships",headers=headers, data={
-        	"roomId": roomId,
-        	"personEmail": email,
-        	"isModerator": False
-        })
-
+    try:
+        print("Room id in aPTR ", roomId, " email: ", email_addresses   )
+        headers={
+        "Content-Type": "application/json; charset=utf-8", 
+        "Authorization" : auth_code 
+        }
+        for email in email_addresses:
+            #api.memberships.create(roomId, personEmail=email)
+            r = requests.post("https://api.ciscospark.com/v1/memberships",headers=headers, data={
+            	"roomId": roomId,
+            	"personEmail": email,
+            	"isModerator": False
+            })
+    except:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 
 @app.route('/list_rooms/<keyword>')
