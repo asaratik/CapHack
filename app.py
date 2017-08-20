@@ -31,7 +31,7 @@ def worker_serve():
     "contextOut": [],
     "source": "DuckDuckGo"
     }
-    my_email  = body['originalReqest']['data']['data']['personEmail']
+    my_email  = body['originalRequest']['data']['data']['personEmail']
     print("::::::::::::::::::",my_email)
     my_message = ("One of your colleague dashed for ")+str(event[1])+(". If interested ding them replying here saying DING")
     post_message(my_message, 1, event[1])
