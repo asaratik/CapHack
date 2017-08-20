@@ -25,6 +25,7 @@ def analyze():
     print(q)
     query = q.encode('ascii','ignore')
     event = query.split(" ")
+    global room_id
     if(event[0] == "dash"):
         print("in DASH-----------------------------------------------")
         res = worker_serve(body)
@@ -37,7 +38,6 @@ def analyze():
     return json.dumps(res), 201
 
 def worker_serve(body):
-    global room_id
     print("-----------------------------", body)
     q = body['result']['resolvedQuery']
     query = q.encode('ascii','ignore')
