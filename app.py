@@ -26,11 +26,12 @@ def analyze():
     query = q.encode('ascii','ignore')
     event = query.split(" ")
     if(event[0] == "dash"):
-        worker_serve(body)
+        res = worker_serve(body)
     elif(event[0] == "ding"):
-        worker_serve_ding(body)
+        res = worker_serve_ding(body)
     else:
-        worker_serve(body)
+        res = worker_serve(body)
+    return json.dumps(res), 201
 
 def worker_serve(body):
     global room_id
@@ -57,7 +58,7 @@ def worker_serve(body):
     email_arr.append(my_email)
     #addParticipantsToRoom("Y2lzY29zcGFyazovL3VzL1JPT00vZmM2YjFhZjAtODVkNy0xMWU3LWE1NjMtZWI2NzcyYTFmZjVk", "abhiram.304@gmail.com")
     addParticipantsToRoom(room_id, email_arr)
-    return json.dumps(res), 201
+    return json.dumps(res)
 #send a message to same random(contacts) 
 
 
@@ -74,6 +75,7 @@ def worker_serve_ding(body):
     email_arr =[]
     email_arr.append(my_email)
     addParticipantsToRoom(room_id, email_arr)
+    return json.dumps(res)
 
 
 def post_message(message, noOfPeople, senderEmail):
