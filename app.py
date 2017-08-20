@@ -35,7 +35,7 @@ def worker_serve():
     print("::::::::::::::::::",my_email)
     my_message = ("One of your colleague dashed for ")+str(event[1])+(". If interested ding them replying here saying DING")
     post_message(my_message, 1, event[1])
-    room_name = str(event[1]) + randint(0, 99)
+    room_name = str(event[1]) + str(randint(0, 99))
     room_id = create_room(room_name)
     print(":::::::::::::::;::::::::;;;;;", room_id)
     return json.dumps(res), 201
