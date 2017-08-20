@@ -58,6 +58,9 @@ def worker_serve(body):
     post_message(my_message, 1, event[1])
     room_name = str(event[1]) + str(randint(0, 999))
     staticroomid.roomid = create_room(room_name).encode('ascii','ignore')
+    f = open('room_id', 'w')
+    f.write(staticroomid.roomid)  # python will convert \n to os.linesep
+    f.close()
     print(":::::::::::::::ROOM ID::::::::;;;;;", staticroomid.roomid)
     email_arr =[]
     email_arr.append(my_email)
@@ -76,10 +79,13 @@ def worker_serve_ding(body):
     "contextOut": [],
     "source": "DuckDuckGo"
     }
+    f = open('room_id','r')
+    roomid = f.read()
+    f.close()
     my_email  = body['originalRequest']['data']['data']['personEmail'].encode('ascii','ignore')
     email_arr =[]
     email_arr.append(my_email)
-    addParticipantsToRoom(staticroomid.roomid, email_arr)
+    addParticipantsToRoom(roomid, email_arr)
     return json.dumps(res)
 
 
