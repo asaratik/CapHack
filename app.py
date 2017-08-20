@@ -14,6 +14,9 @@ api = CiscoSparkAPI("ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2Y
 auth_code = 'Bearer ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2'
 
 
+class staticroomid:
+    roomid = 0
+
 @app.route('/')
 def index():
     return  "hello"
@@ -25,7 +28,6 @@ def analyze():
     print(q)
     query = q.encode('ascii','ignore')
     event = query.split(" ")
-    global room_id
     if(event[0] == "dash"):
         print("in DASH-----------------------------------------------")
         res = worker_serve(body)
@@ -55,12 +57,12 @@ def worker_serve(body):
     my_message = ("One of your colleague dashed for ")+str(event[1])+(". If interested ding them replying here saying DING")
     post_message(my_message, 1, event[1])
     room_name = str(event[1]) + str(randint(0, 999))
-    room_id = create_room(room_name).encode('ascii','ignore')
-    print(":::::::::::::::ROOM ID::::::::;;;;;", room_id)
+    staticroomid.roomid = create_room(room_name).encode('ascii','ignore')
+    print(":::::::::::::::ROOM ID::::::::;;;;;", staticroomid.roomid)
     email_arr =[]
     email_arr.append(my_email)
     #addParticipantsToRoom("Y2lzY29zcGFyazovL3VzL1JPT00vZmM2YjFhZjAtODVkNy0xMWU3LWE1NjMtZWI2NzcyYTFmZjVk", "abhiram.304@gmail.com")
-    addParticipantsToRoom(room_id, email_arr)
+    addParticipantsToRoom(staticroomid.roomid, email_arr)
     return json.dumps(res)
 #send a message to same random(contacts) 
 
@@ -77,7 +79,7 @@ def worker_serve_ding(body):
     my_email  = body['originalRequest']['data']['data']['personEmail'].encode('ascii','ignore')
     email_arr =[]
     email_arr.append(my_email)
-    addParticipantsToRoom(room_id, email_arr)
+    addParticipantsToRoom(staticroomid.roomid, email_arr)
     return json.dumps(res)
 
 
