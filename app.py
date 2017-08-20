@@ -29,7 +29,7 @@ def worker_serve():
     "source": "DuckDuckGo"
     }
     my_email  = "abhiram.304@gmail.com"
-    my_message = event[1]
+    my_message = ("One of your colleague dashed for")+str(event[1])+(". If interested ding them replying here saying DING")
     post_message(my_message, 1, my_email)
     return json.dumps(res), 201
 #send a message to same random(contacts) 
