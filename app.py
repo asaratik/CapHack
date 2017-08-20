@@ -17,7 +17,7 @@ def index():
 def worker_serve():
     body = json.loads(request.data)
     print("-----------------------------", body)
-    body = body.decode('utf8')
+    body = body.encode('ascii','ignore')
     query = body['result']['resolvedQuery']
     print "Speech in Server ----------------------------......... ", query
     res =    {
