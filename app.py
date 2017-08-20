@@ -79,25 +79,20 @@ def create_room(roomName):
 def addParticipantsToRoom(roomId, email_addresses):
     try:
         print("Room id in aPTR ", roomId, " email: ", email_addresses   )
-        headers={
-        "Content-Type": "application/json; charset=utf-8", 
-        "Authorization" : auth_code 
-        }
-        f = False
         for email in email_addresses:
-           url = "https://api.ciscospark.com/v1/memberships"            
-           payload = "{\r\n  "+"roomId"+" : "+str(roomId)+",\r\n  "+"personEmail"+": "+str(email)+",\r\n  "+"isModerator"+": "+False+"\r\n}"
-           headers = {
-            'authorization': "Bearer ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2",
-            'content-type': "application/json",
-            'cache-control': "no-cache",
-            'postman-token': "7658b5dc-3a90-c4cf-9782-781a05d16eb1"
-            }
-
-           response = requests.request("POST", url, data=payload, headers=headers)
-           print(response.text)
-
-        print("77777777777777777",r)
+            url = "https://api.ciscospark.com/v1/memberships"
+            #stjr = "Y2lzY29zcGFyazovL3VzL1JPT00vNDhhMGE1ODAtODVkNy0xMWU3LTgyYTUtMDE0YjFmYzEzZTg5" 
+            #mail = "marupati.udaykiran@gmail.com"
+            payload = "{\r\n  \"roomId\" : \""+str(roomId)+"\",\r\n  \"personEmail\": \""+str(email)+"\",\r\n  \"isModerator\": \"false\"\r\n}"
+            headers = {
+    'authorization': "Bearer ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2",
+    'content-type': "application/json",
+    'cache-control': "no-cache",
+    'postman-token': "7658b5dc-3a90-c4cf-9782-781a05d16eb1"
+    }
+            response = requests.request("POST", url, data=payload, headers=headers) 
+            print(response.text)
+            print("77777777777777777",r)
     except requests.HTTPError as e:
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", e)
 
