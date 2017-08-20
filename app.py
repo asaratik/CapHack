@@ -11,7 +11,7 @@ def index():
 @app.route('/worker', methods=['POST'])
 def worker_serve():
     res =    {
-    "speech": "Barack Hussein Obama II was the 44th and current President of the United States.",
+    "speech": "Hemu swamy. Rasik rajaa",
     "displayText": "Barack Hussein Obama II was the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
     "data":{},
     "contextOut": [],
@@ -31,5 +31,5 @@ def web_hook():
 
 if __name__ == '__main__':
 	app.secret_key = os.urandom(12)
-	app.run(debug=True)
+	#app.run(debug=True)
     
