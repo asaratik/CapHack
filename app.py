@@ -74,6 +74,7 @@ def create_room(roomName):
     return api.rooms.create(roomName).id
 
 def addParticipantsToRoom(roomId, email_addresses):
+    print("Room id in aPTR ", roomId, " email: ", email_addresses)
     for email in email_addresses:
         api.memberships.create(roomId, personEmail=email)
 
