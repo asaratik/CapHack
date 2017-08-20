@@ -17,6 +17,9 @@ def index():
 def worker_serve():
     body = json.loads(request.data)
     print("-----------------------------", body)
+    body = body.decode('utf8')
+    query = body['result']['resolvedQuery']
+    print "Speech in Server ----------------------------......... ", query
     res =    {
     "speech": "Hello i've sent the request",
     "displayText": "Barack Hussein Obama II was the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
@@ -30,6 +33,21 @@ def worker_serve():
     return json.dumps(res), 201
 #send a message to same random(contacts) 
 
+@app.route('/worker', methods=['POST'])
+def worker_serve_ding():
+    body = json.loads(request.data)
+    print("-----------------------------", body)
+    res =    {
+    "speech": "Thanks for your interest. You will be added to a spark chat room.",
+    "displayText": "Thanks for your interest. You will be added to a spark chat room",
+    "data":{},
+    "contextOut": [],
+    "source": "DuckDuckGo"
+    }
+    my_email  = "abhiram.304@gmail.com"
+
+
+
 def post_message(message, noOfPeople, senderEmail):
 	emailList = ['marupati.udaykiran@gmail.com']
 	for x in range(0, noOfPeople):
@@ -38,6 +56,14 @@ def post_message(message, noOfPeople, senderEmail):
 
 def createMessage(toEmail, message):
 	api.messages.create(toPersonEmail=toEmail, text=message)
+
+
+def cerate_room(roomName):
+    return api.rooms.create(roomName).id
+
+def addParticipantsToRoom(roomId, email_addresses):
+    for email in email_addresses:
+        api.memberships.create(roomId, personEmail=email)
 
 
 
