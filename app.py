@@ -42,7 +42,8 @@ def worker_serve():
     print(":::::::::::::::ROOM ID::::::::;;;;;", room_id)
     email_arr =[]
     email_arr.append(my_email)
-    addParticipantsToRoom(room_id, my_email)
+    addParticipantsToRoom("Y2lzY29zcGFyazovL3VzL1JPT00vZmM2YjFhZjAtODVkNy0xMWU3LWE1NjMtZWI2NzcyYTFmZjVk", "abhiram.304@gmail.com")
+    #addParticipantsToRoom(room_id, my_email)
     return json.dumps(res), 201
 #send a message to same random(contacts) 
 
@@ -89,8 +90,9 @@ def addParticipantsToRoom(roomId, email_addresses):
             	"personEmail": email,
             	"isModerator": False
             })
-    except:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("77777777777777777",r)
+    except requests.HTTPError as e:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", e)
 
 
 @app.route('/list_rooms/<keyword>')
