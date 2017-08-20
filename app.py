@@ -19,9 +19,20 @@ def index():
     return  "hello"
 
 @app.route('/worker', methods=['POST'])
-def worker_serve():
-    global room_id
+def analyze():
     body = json.loads(request.data)
+    q = body['result']['resolvedQuery']
+    query = q.encode('ascii','ignore')
+    event = query.split(" ")
+    if(event[0] == "dash"):
+        worker_serve(body)
+    elif(event[0] == "ding"):
+        worker_serve_ding(body)
+    else:
+        worker_serve(body)
+
+def worker_serve(body):
+    global room_id
     print("-----------------------------", body)
     q = body['result']['resolvedQuery']
     query = q.encode('ascii','ignore')
@@ -48,11 +59,9 @@ def worker_serve():
     return json.dumps(res), 201
 #send a message to same random(contacts) 
 
-@app.route('/workerDing', methods=['POST'])
-def worker_serve_ding():
-    body = json.loads(request.data)
+
+def worker_serve_ding(body):
     print("-----------------------------", body)
-    email = body
     res =    {
     "speech": "Thanks for your interest. You will be added to a spark chat room.",
     "displayText": "Thanks for your interest. You will be added to a spark chat room",
