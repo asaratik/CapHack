@@ -27,9 +27,13 @@ def list_rooms(keyword):
 @app.route('/web_hook', methods=['POST'])
 def web_hook():
 	body = json.loads(request.data)
-	return body
+	return json.dumps(body)
 
 if __name__ == '__main__':
 	app.secret_key = os.urandom(12)
+<<<<<<< HEAD
 	#app.run(debug=True)
     
+=======
+	app.run(debug=True)
+>>>>>>> b7bcd8efbc6272589529add7031e4cd9202900ed
