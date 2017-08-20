@@ -29,8 +29,8 @@ def worker_serve():
 #send a message to same random(contacts) 
 
 def post_message(message, noOfPeople, senderEmail):
-	emailList = ['ashokaratikatla@gmail.com', 'marupati.udaykiran@gmail.com']
-	for x in range(0, noOfPeople-1):
+	emailList = ['marupati.udaykiran@gmail.com']
+	for x in range(0, noOfPeople):
 		if emailList[x] != senderEmail:
 			api.messages.create(toPersonEmail=emailList[x], text=message)
 
