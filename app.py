@@ -22,6 +22,7 @@ def index():
 def analyze():
     body = json.loads(request.data)
     q = body['result']['resolvedQuery']
+    print(q)
     query = q.encode('ascii','ignore')
     event = query.split(" ")
     if(event[0] == "dash"):
@@ -49,7 +50,7 @@ def worker_serve(body):
     print("::::::::USER EMAIL::::::::::",my_email)
     my_message = ("One of your colleague dashed for ")+str(event[1])+(". If interested ding them replying here saying DING")
     post_message(my_message, 1, event[1])
-    room_name = str(event[1]) + str(randint(0, 99))
+    room_name = str(event[1]) + str(randint(0, 999))
     room_id = create_room(room_name).encode('ascii','ignore')
     print(":::::::::::::::ROOM ID::::::::;;;;;", room_id)
     email_arr =[]
