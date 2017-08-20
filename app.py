@@ -13,13 +13,14 @@ api = CiscoSparkAPI("ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2Y
 
 auth_code = 'Bearer ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2'
 
-global room_id
+
 @app.route('/')
 def index():
     return  "hello"
 
 @app.route('/worker', methods=['POST'])
 def worker_serve():
+    global room_id
     body = json.loads(request.data)
     print("-----------------------------", body)
     q = body['result']['resolvedQuery']
@@ -59,8 +60,10 @@ def worker_serve_ding():
     "contextOut": [],
     "source": "DuckDuckGo"
     }
-    my_email  = "abhiram.304@gmail.com"
-
+    my_email  = body['originalRequest']['data']['data']['personEmail'].encode('ascii','ignore')
+    email_arr =[]
+    email_arr.append(my_email)
+    addParticipantsToRoom(room_id, email_arr)
 
 
 def post_message(message, noOfPeople, senderEmail):
