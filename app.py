@@ -4,11 +4,14 @@ import db, os, spark, sys, json
 
 app = Flask(__name__)
 
+from random import randint
+
+
 from ciscosparkapi import CiscoSparkAPI
 
 api = CiscoSparkAPI("ZDY0MThkMDktZDg2Yi00OGYxLWI3MDYtNzljNmEzMGE2ZjBjM2ViOTY1M2YtYTU2")
 
-
+global room_id
 @app.route('/')
 def index():
     return  "hello"
@@ -28,16 +31,21 @@ def worker_serve():
     "contextOut": [],
     "source": "DuckDuckGo"
     }
-    my_email  = "abhiram.304@gmail.com"
-    my_message = ("One of your colleague dashed for")+str(event[1])+(". If interested ding them replying here saying DING")
-    post_message(my_message, 1, my_email)
+    my_email  = body['data']['data']['personEmail']
+    print("::::::::::::::::::",my_email)
+    my_message = ("One of your colleague dashed for ")+str(event[1])+(". If interested ding them replying here saying DING")
+    post_message(my_message, 1, event[1])
+    room_name = str(event[1]) + randint(0, 99)
+    room_id = create_room(room_name)
+    print(":::::::::::::::;::::::::;;;;;", room_id)
     return json.dumps(res), 201
 #send a message to same random(contacts) 
 
-@app.route('/worker', methods=['POST'])
+@app.route('/workerDing', methods=['POST'])
 def worker_serve_ding():
     body = json.loads(request.data)
     print("-----------------------------", body)
+    email = body
     res =    {
     "speech": "Thanks for your interest. You will be added to a spark chat room.",
     "displayText": "Thanks for your interest. You will be added to a spark chat room",
@@ -59,7 +67,7 @@ def createMessage(toEmail, message):
 	api.messages.create(toPersonEmail=toEmail, text=message)
 
 
-def cerate_room(roomName):
+def create_room(roomName):
     return api.rooms.create(roomName).id
 
 def addParticipantsToRoom(roomId, email_addresses):
