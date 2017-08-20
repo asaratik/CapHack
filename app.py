@@ -15,6 +15,8 @@ def index():
 
 @app.route('/worker', methods=['POST'])
 def worker_serve():
+    body = json.loads(request.data)
+    print("-----------------------------", body)
     res =    {
     "speech": "Hello i've sent the request",
     "displayText": "Barack Hussein Obama II was the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
