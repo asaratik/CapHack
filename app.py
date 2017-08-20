@@ -19,6 +19,7 @@ def worker_serve():
     print("-----------------------------", body)
     q = body['result']['resolvedQuery']
     query = q.encode('ascii','ignore')
+    event = query.split(" ")
     print "Speech in Server ----------------------------......... ", query
     res =    {
     "speech": "Hello i've sent the request",
@@ -28,7 +29,7 @@ def worker_serve():
     "source": "DuckDuckGo"
     }
     my_email  = "abhiram.304@gmail.com"
-    my_message = "cricket"
+    my_message = event[1]
     post_message(my_message, 1, my_email)
     return json.dumps(res), 201
 #send a message to same random(contacts) 
